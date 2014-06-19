@@ -54,9 +54,10 @@ describe("mongoose-mill", function() {
       assert.equal(b.provider, 'github');
       assert.equal(b.name, 'Bar');
       assert.equal(b.oauth_id, '67890');
+      done();
     })
-    .catch(function(err) {
-      console.log(err);
+    .catch(done);
+  });
     })
     .finally(done);
   });

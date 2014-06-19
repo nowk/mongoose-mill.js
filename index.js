@@ -1,14 +1,20 @@
 /* jshint node: true */
 
-var mongoose = require('mongoose');
 var extend = require('node.extend');
 var Promise = require('bluebird');
 
 /*
  * expose
+ *
+ * @param {Mongoose} mongoose
+ * @return {Function}
+ * @api public
  */
 
-module.exports = factory;
+module.exports = function(mongoose) {
+  return factory.bind(mongoose);
+};
+
 
 /*
  * factory
@@ -16,14 +22,16 @@ module.exports = factory;
  * @param {String} modelName
  * @param {Object} defaults
  * @return {Function}
- * @api public
+ * @api private
  */
 
 function factory(modelName, defaults) {
+  var self = this;
   defaults = defaults || {};
+
   return function(attrs) {
     return new Promise(function(resolve, reject) {
-      new mongoose.models[modelName](extend(true, defaults, attrs))
+      new self.models[modelName](extend(true, defaults, attrs))
         .save(function(err, resource) {
           if (err) {
             return reject(err);

@@ -12,6 +12,11 @@ Mongoose factories for tests
 
 ## Usage
 
+    var mongoose = require('mongoose');
+    var factory = require('mongoose-mill')(mongoose);
+
+---
+
     var userf = factory('User', {provider: 'github'});
     var user = userf({name: 'Foo', oauth_id: '12345'}),
 

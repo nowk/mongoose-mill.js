@@ -5,7 +5,7 @@ process.env.NODE_ENV = 'test';
 var assert = require('chai').assert;
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
-var factory = require('..');
+var factory = require('..')(mongoose);
 
 describe("mongoose-mill", function() {
   before(function(done) {

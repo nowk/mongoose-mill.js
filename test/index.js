@@ -58,7 +58,19 @@ describe("mongoose-mill", function() {
     })
     .catch(done);
   });
+
+  it("[bug] previous attrs merger does not reset on each factory", function(done) {
+    var userf = factory('User', {provider: 'Github'});
+
+    Promise.all([
+      userf({name: 'Foo'}),
+      userf({})
+    ])
+    .spread(function(a, b) {
+      assert.isDefined(a.name);
+      assert.isUndefined(b.name);
+      done();
     })
-    .finally(done);
+    .catch(done);
   });
 });

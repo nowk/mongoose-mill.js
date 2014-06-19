@@ -31,7 +31,7 @@ function factory(modelName, defaults) {
 
   return function(attrs) {
     return new Promise(function(resolve, reject) {
-      new self.models[modelName](extend(true, defaults, attrs))
+      new self.models[modelName](extend(true, {}, defaults, attrs))
         .save(function(err, resource) {
           if (err) {
             return reject(err);
